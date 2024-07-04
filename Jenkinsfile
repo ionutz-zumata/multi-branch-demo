@@ -14,7 +14,7 @@ pipeline {
                 }
                 not {
                     anyOf {
-                        branch "releas/*-beta*"
+                        branch "release/*-beta*"
                     }
                 }
             }
