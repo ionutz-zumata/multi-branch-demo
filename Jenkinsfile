@@ -25,7 +25,7 @@ pipeline {
                             script {
                                 def approvalInput = input message: "Deploy?",
                                         submitterParameter: "approver",
-                                        paramters: [
+                                        parameters: [
                                             booleanParam(name: "Yes", defaultValue: false)
                                         ]
                                 env.APPROVER = "${approvalInput.approver}"
@@ -57,7 +57,7 @@ pipeline {
                             script {
                                 def approvalInput = input message: "Deploy?",
                                         submitterParameter: "approver",
-                                        paramters: [
+                                        parameters: [
                                             booleanParam(name: "Yes", defaultValue: false)
                                         ]
                                 env.APPROVER = "${approvalInput.approver}"
