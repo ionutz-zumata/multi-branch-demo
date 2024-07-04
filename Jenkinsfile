@@ -2,12 +2,12 @@ pipeline {
     agent any
     options {
         // Timeout counter starts AFTER agent is allocated
-        timeout(time: 1, unit: 'SECONDS')
+        timeout(time: 1, unit: "SECONDS")
     }
     
     stages {
 
-        stage('regular release') {
+        stage("regular deployment") {
             when {
                 anyOf {
                     branch "release/*"
@@ -24,7 +24,7 @@ pipeline {
                         timeout(60) {
                             script {
                                 def approvalInput = input message: "Deploy?",
-                                        submitterParameter: 'approver',
+                                        submitterParameter: "approver",
                                         paramters: [
                                             booleanParam(name: "Yes", defaultValue: false)
                                         ]
@@ -44,7 +44,7 @@ pipeline {
 
         }
 
-        stage('beta release') {
+        stage("beta deployment") {
             when {
                 anyOf {
                     branch "release/*-beta*"
@@ -56,7 +56,7 @@ pipeline {
                         timeout(60) {
                             script {
                                 def approvalInput = input message: "Deploy?",
-                                        submitterParameter: 'approver',
+                                        submitterParameter: "approver",
                                         paramters: [
                                             booleanParam(name: "Yes", defaultValue: false)
                                         ]
