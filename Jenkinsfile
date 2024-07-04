@@ -4,10 +4,33 @@ pipeline {
         // Timeout counter starts AFTER agent is allocated
         timeout(time: 1, unit: 'SECONDS')
     }
+    
     stages {
-        stage('Example') {
+
+        stage('regular release') {
+            when {
+                anyOf {
+                    branch "release/*"
+                }
+                not {
+                    anyOf {
+                        branch "releas/*-beta*"
+                    }
+                }
+            }
             steps {
-                echo 'Hello World'
+                echo 'Regular release'
+            }
+        }
+
+        stage('beta release') {
+            when {
+                anyOf {
+                    branch "release/*-beta*"
+                }
+            }
+            steps {
+                echo 'beta release'
             }
         }
     }
