@@ -17,10 +17,31 @@ pipeline {
                         branch "release/*-beta*"
                     }
                 }
+            } 
+            stages {
+                stage("Approval") {
+                    steps {
+                        timeout(60) {
+                            script {
+                                def approvalInput = input message: "Deploy?",
+                                        submitterParameter: 'approver',
+                                        paramters: [
+                                            booleanParam(name: "Yes", defaultValue: false)
+                                        ]
+                                env.APPROVER = "${approvalInput.approver}"
+                            }
+                        }
+                    }
+                }
+
+                stage("Deploy") {
+                    steps {
+                        echo "Signed off by: ${APPROVER}"
+                        echo "Regular deployment done"
+                    }
+                }
             }
-            steps {
-                echo 'Regular release'
-            }
+
         }
 
         stage('beta release') {
@@ -29,8 +50,28 @@ pipeline {
                     branch "release/*-beta*"
                 }
             }
-            steps {
-                echo 'beta release'
+            stages {
+                stage("Approval") {
+                    steps {
+                        timeout(60) {
+                            script {
+                                def approvalInput = input message: "Deploy?",
+                                        submitterParameter: 'approver',
+                                        paramters: [
+                                            booleanParam(name: "Yes", defaultValue: false)
+                                        ]
+                                env.APPROVER = "${approvalInput.approver}"
+                            }
+                        }
+                    }
+                }
+
+                stage("Deploy") {
+                    steps {
+                        echo "Signed off by: ${APPROVER}"
+                        echo "Beta deployment done"
+                    }
+                }
             }
         }
     }
