@@ -21,9 +21,14 @@ pipeline {
                                 def approvalInput = input message: "Deploy?",
                                         submitterParameter: "approver",
                                         parameters: [
-                                            booleanParam(name: "Yes", defaultValue: false)
+                                            booleanParam(
+                                                name: "DeployToBetaChannel", 
+                                                defaultValue: false,
+                                                description: "Deploy to beta channel?"
+                                            )
                                         ]
                                 env.APPROVER = "${approvalInput.approver}"
+                                env.DEPLOY_TO_BETA_CHANNEL = ${approvalInput.DeployToBetaChannel}
                             }
                         }
                     }
@@ -43,6 +48,7 @@ pipeline {
             when {
                 anyOf {
                     branch "release/*-beta*"
+                    environment name: "DEPLOY_TO_BETA_CHANNEL", value: true
                 }
             }
             stages {
