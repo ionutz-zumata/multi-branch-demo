@@ -48,7 +48,7 @@ pipeline {
             when {
                 anyOf {
                     branch "release/*-beta*"
-                    environment name: "DEPLOY_TO_BETA_CHANNEL", value: true
+                    environment name: "DEPLOY_TO_BETA_CHANNEL", value: "true"
                 }
             }
             stages {
