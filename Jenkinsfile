@@ -28,7 +28,7 @@ pipeline {
                                             )
                                         ]
                                 env.APPROVER = "${approvalInput.approver}"
-                                env.DEPLOY_TO_BETA_CHANNEL = ${approvalInput.DeployToBetaChannel}
+                                env.DEPLOY_TO_BETA_CHANNEL = "${approvalInput.DeployToBetaChannel}"
                             }
                         }
                     }
