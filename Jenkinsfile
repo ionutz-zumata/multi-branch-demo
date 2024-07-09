@@ -52,20 +52,6 @@ pipeline {
                 }
             }
             stages {
-                stage("Approval") {
-                    steps {
-                        timeout(60) {
-                            script {
-                                def approvalInput = input message: "Deploy?",
-                                        submitterParameter: "approver",
-                                        parameters: [
-                                            booleanParam(name: "Yes", defaultValue: false)
-                                        ]
-                                env.APPROVER = "${approvalInput.approver}"
-                            }
-                        }
-                    }
-                }
 
                 stage("Deploy") {
                     steps {
