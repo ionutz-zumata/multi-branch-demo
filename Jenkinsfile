@@ -22,13 +22,12 @@ pipeline {
                                         submitterParameter: "approver",
                                         parameters: [
                                             booleanParam(
-                                                name: "DeployToBetaChannel", 
+                                                name: "Deploy To Beta Channel", 
                                                 defaultValue: false,
-                                                description: "Deploy to beta channel?"
                                             )
                                         ]
                                 env.APPROVER = "${approvalInput.approver}"
-                                env.DEPLOY_TO_BETA_CHANNEL = "${approvalInput.DeployToBetaChannel}"
+                                env.DEPLOY_TO_BETA_CHANNEL = "${approvalInput['Deploy To Beta Channel']}"
                             }
                         }
                     }
