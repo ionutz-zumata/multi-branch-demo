@@ -21,6 +21,13 @@ pipeline {
                                 def approvalInput = input message: "Deploy?",
                                         submitterParameter: "approver",
                                         parameters: [
+                                            [
+                                                $class: 'hudson.model.ChoiceParameterDefinition',
+                                                choices: 'Approved\nNot Approved',
+                                                name: 'isApproved',
+                                                description: 'This can be checked by' +
+                                                    ' users with approval permission'
+                                            ],
                                             booleanParam(
                                                 name: "Deploy To Beta Channel", 
                                                 defaultValue: false,
