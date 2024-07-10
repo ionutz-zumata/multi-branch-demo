@@ -33,6 +33,9 @@ pipeline {
                                                 defaultValue: false,
                                             )
                                         ]
+                                if (approvalInput.isApproved == 'Not Approved') {
+                                    error "Build not approved."
+                                }
                                 env.APPROVER = "${approvalInput.approver}"
                                 env.DEPLOY_TO_BETA_CHANNEL = "${approvalInput['Deploy To Beta Channel']}"
                             }
