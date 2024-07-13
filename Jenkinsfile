@@ -18,7 +18,8 @@ pipeline {
                     steps {
                         timeout(60) {
                             script {
-                                def approvalInput = input message: "Deploy?",
+                                def deployToBetaLabel = "Deploy to beta channel"
+				def approvalInput = input message: "Deploy?",
                                         submitterParameter: "approver",
                                         parameters: [
                                             [
@@ -29,7 +30,7 @@ pipeline {
                                                     ' users with approval permission'
                                             ],
                                             booleanParam(
-                                                name: "Deploy To Beta Channel", 
+                                                name: deployToBetaLabel, 
                                                 defaultValue: false,
                                             )
                                         ]
@@ -37,7 +38,7 @@ pipeline {
                                     error "Build not approved."
                                 }
                                 env.APPROVER = "${approvalInput.approver}"
-                                env.DEPLOY_TO_BETA_CHANNEL = "${approvalInput['Deploy To Beta Channel']}"
+                                env.DEPLOY_TO_BETA_CHANNEL = "${approvalInput[${deployToBetaLabel}]}"
                             }
                         }
                     }
