@@ -38,7 +38,7 @@ pipeline {
                                     error "Build not approved."
                                 }
                                 env.APPROVER = "${approvalInput.approver}"
-                                env.DEPLOY_TO_BETA_CHANNEL = "${approvalInput[${deployToBetaLabel}]}"
+                                env.DEPLOY_TO_BETA_CHANNEL = "${approvalInput[deployToBetaLabel]}"
                             }
                         }
                     }
